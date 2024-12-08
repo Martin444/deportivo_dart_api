@@ -1,6 +1,6 @@
 enum RolesUsers {
-  clothes,
-  dinning,
+  costumer,
+  club,
 }
 
 class RolesFuncionts {
