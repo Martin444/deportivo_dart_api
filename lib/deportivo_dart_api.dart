@@ -9,3 +9,4 @@ export 'package:deportivo_dart_api/features/upload_images/upload_images.dart';
 export 'package:deportivo_dart_api/features/user/get_me_profile/model/roles_users.dart';
 export 'package:deportivo_dart_api/features/user/get_me_profile/model/user_model.dart';
 export 'package:deportivo_dart_api/features/user/get_me_profile/data/usescase/get_me_usescases.dart';
+export 'package:deportivo_dart_api/features/geolocation/geolocation.dart';

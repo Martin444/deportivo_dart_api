@@ -4,14 +4,19 @@ class API {
   static bool _inicialized = false;
   static String _baseURL = '';
   static String _accessToken = '';
+  static String? _googleKEY = '';
 
   API._();
 
-  static API getInstance(String urlMenuapi) {
+  static API getInstance(
+    String urlMenuapi, {
+    String? googleApiKey,
+  }) {
     if (urlMenuapi.isNotEmpty) {
       _instance = API._();
       _baseURL = urlMenuapi;
       _inicialized = true;
+      _googleKEY = googleApiKey;
     }
     return _instance;
   }
@@ -23,6 +28,7 @@ class API {
 
   static String get defaulBaseUrl => _baseURL;
   static String get loginAccessToken => _accessToken;
+  static String? get googleAPIKEY => _googleKEY;
 
   bool get initialized => _inicialized;
 }
