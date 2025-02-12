@@ -1,22 +1,24 @@
 class DTAddressModel {
-  final String formattedAddress;
-  final String street;
-  final String city;
-  final String state;
-  final String country;
-  final String postalCode;
-  final double latitude;
-  final double longitude;
+  final String? formattedAddress;
+  final String? street;
+  final String? streetNumber;
+  final String? city;
+  final String? state;
+  final String? country;
+  final String? postalCode;
+  final double? latitude;
+  final double? longitude;
 
   DTAddressModel({
-    required this.formattedAddress,
-    required this.street,
-    required this.city,
-    required this.state,
-    required this.country,
-    required this.postalCode,
-    required this.latitude,
-    required this.longitude,
+    this.formattedAddress,
+    this.street,
+    this.streetNumber,
+    this.city,
+    this.state,
+    this.country,
+    this.postalCode,
+    this.latitude,
+    this.longitude,
   });
 
   factory DTAddressModel.fromGoogleMaps(Map<String, dynamic> googleMapsData) {
@@ -29,6 +31,7 @@ class DTAddressModel {
       street: addressComponents['route'] ?? '',
       city: addressComponents['locality'] ?? '',
       state: addressComponents['administrative_area_level_1'] ?? '',
+      streetNumber: addressComponents['street_number'] ?? '',
       country: addressComponents['country'] ?? '',
       postalCode: addressComponents['postal_code'] ?? '',
       latitude: googleMapsData['geometry']['location']['lat'],
@@ -43,6 +46,7 @@ class DTAddressModel {
   Map<String, dynamic> toJson() => {
         'formatted_address': formattedAddress,
         'street': street,
+        'street_number': streetNumber,
         'city': city,
         'state': state,
         'country': country,
@@ -54,6 +58,7 @@ class DTAddressModel {
   static fromJson(Map<String, dynamic> json) => DTAddressModel(
         formattedAddress: json['formatted_address'] ?? '',
         street: json['street'] ?? '',
+        streetNumber: json['street_number'] ?? '',
         city: json['city'] ?? '',
         state: json['state'] ?? '',
         country: json['country'] ?? '',
@@ -68,6 +73,7 @@ class DTAddressModel {
   String get debugString => '''
     Address: $formattedAddress
     Street: $street
+    Street Number: $streetNumber
     City: $city
     State: $state
     Country: $country
