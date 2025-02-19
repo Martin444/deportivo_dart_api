@@ -63,8 +63,8 @@ class DTAddressModel {
         state: json['state'] ?? '',
         country: json['country'] ?? '',
         postalCode: json['postal_code'] ?? '',
-        latitude: json['latitude']?.toDouble() ?? 0.0,
-        longitude: json['longitude']?.toDouble() ?? 0.0,
+        latitude: double.tryParse(json['latitude']),
+        longitude: double.tryParse(json['longitude']),
       );
 
   @override
