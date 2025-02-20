@@ -87,4 +87,37 @@ class SportFacilityProvider extends SportFacilityRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<List<SportFacilitieModel>> getAllSportsFacilities() async {
+    try {
+      Uri userURl = Uri.parse('${API.defaulBaseUrl}/sports-facilities');
+      var response = await http.get(
+        // headers: {'Authorization': 'Bearer ${API.loginAccessToken}'},
+        userURl,
+      );
+      if (response.statusCode != 200) {
+        throw ApiException(
+          response.statusCode,
+          response.body,
+        );
+      }
+
+      var respJson = jsonDecode(response.body) as List;
+
+      // Verificar si respJson está vacío
+      if (respJson.isEmpty) {
+        return [];
+      }
+      // Convertir la respuesta JSON a una lista de SportFacilitieModel
+      List<SportFacilitieModel> sportsFinded = respJson.map((json) {
+        var sportFacility = SportFacilitieModel.fromJson(json);
+        return sportFacility;
+      }).toList();
+
+      return sportsFinded;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
