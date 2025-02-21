@@ -38,7 +38,7 @@ class SportFacilitieModel {
       startsTimesAbilables: json['startsTimesAbilables'],
       endTimesAbilables: json['endTimesAbilables'],
       userOwner: json['userOwner'],
-      isActive: json['isActive'],
+      isActive: json['isActive'] as bool,
       photos: List<Photo>.from(json['photos'].map((photo) => Photo.fromJson(photo))),
       id: json['id'],
       createdAt: DateTime.parse(json['createdAt']),
