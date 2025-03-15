@@ -3,13 +3,13 @@ import 'package:deportivo_dart_api/deportivo_dart_api.dart';
 class SportFacilitieModel {
   String name;
   String type;
-  DTAddressModel location;
+  DTAddressModel? location;
   DaysAbilables daysAbilables;
   Map<String, dynamic> startsTimesAbilables;
   Map<String, dynamic> endTimesAbilables;
-  String userOwner;
+  UserModel? userOwner;
   bool isActive;
-  List<Photo> photos;
+  List<Photo>? photos;
   String id;
   DateTime createdAt;
   DateTime updatedAt;
@@ -17,13 +17,13 @@ class SportFacilitieModel {
   SportFacilitieModel({
     required this.name,
     required this.type,
-    required this.location,
+    this.location,
     required this.daysAbilables,
     required this.startsTimesAbilables,
     required this.endTimesAbilables,
-    required this.userOwner,
+    this.userOwner,
     required this.isActive,
-    required this.photos,
+    this.photos,
     required this.id,
     required this.createdAt,
     required this.updatedAt,
@@ -33,13 +33,13 @@ class SportFacilitieModel {
     return SportFacilitieModel(
       name: json['name'],
       type: json['type'],
-      location: DTAddressModel.fromJson(json['location']),
+      location: json['location'] == null ? null : DTAddressModel.fromJson(json['location']),
       daysAbilables: DaysAbilables.fromJson(json['daysAbilables']),
       startsTimesAbilables: json['startsTimesAbilables'],
-      endTimesAbilables: json['endTimesAbilables'],
-      userOwner: json['userOwner'],
+      endTimesAbilables: Map.from(json['endTimesAbilables']),
+      userOwner: json['userOwner'] == null ? null : UserModel.fromJson(json['userOwner']),
       isActive: json['isActive'] as bool,
-      photos: List<Photo>.from(json['photos'].map((photo) => Photo.fromJson(photo))),
+      photos: json['photos'] == null ? null : List<Photo>.from(json['photos'].map((photo) => Photo.fromJson(photo))),
       id: json['id'],
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
@@ -50,13 +50,13 @@ class SportFacilitieModel {
     return {
       'name': name,
       'type': type,
-      'location': location.toJson(),
+      'location': location?.toJson(),
       'daysAbilables': daysAbilables.toJson(),
       'startsTimesAbilables': startsTimesAbilables,
       'endTimesAbilables': endTimesAbilables,
       'userOwner': userOwner,
       'isActive': isActive,
-      'photos': List<dynamic>.from(photos.map((photo) => photo.toJson())),
+      'photos': photos != null ? List<dynamic>.from(photos!.map((photo) => photo.toJson())) : '',
       'id': id,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),

@@ -1,5 +1,5 @@
-import 'package:deportivo_dart_api/features/user/get_me_profile/data/provider/dinning_provider.dart';
-import 'package:deportivo_dart_api/features/user/get_me_profile/model/user_model.dart';
+import 'package:deportivo_dart_api/features/user/profiles/data/provider/dinning_provider.dart';
+import 'package:deportivo_dart_api/features/user/profiles/model/user_model.dart';
 
 class GetMeUseCase {
   GetMeUseCase();

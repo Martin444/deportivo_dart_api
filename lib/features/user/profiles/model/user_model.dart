@@ -1,3 +1,5 @@
+import 'package:deportivo_dart_api/deportivo_dart_api.dart';
+
 class UserModel {
   String? id;
   String? photoURL;
@@ -8,6 +10,7 @@ class UserModel {
   String? role;
   DateTime? createAt;
   DateTime? updateAt;
+  List<SportFacilitieModel>? sportFacilities;
 
   UserModel({
     this.id,
@@ -19,6 +22,7 @@ class UserModel {
     this.createAt,
     this.updateAt,
     this.photoURL,
+    this.sportFacilities,
   });
 
   static UserModel fromJson(Map<String, dynamic> json) {
@@ -33,6 +37,29 @@ class UserModel {
           ? null
           : DateTime.parse(json['createAt']), // Evita llamar a DateTime.parse si es nulo
       updateAt: json['updateAt'] == null ? null : DateTime.parse(json['updateAt']),
+      sportFacilities: json['sportFacilities'] == null
+          ? null
+          : (json['sportFacilities'] as List<dynamic>)
+              .map((item) => SportFacilitieModel.fromJson(item as Map<String, dynamic>))
+              .toList(),
     );
+  }
+
+  static List<UserModel> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => UserModel.fromJson(json)).toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'photoURL': photoURL,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'role': role,
+      'createAt': createAt?..toIso8601String(),
+      'updateAt': updateAt?.toIso8601String(),
+      'sportFacilities': sportFacilities?.map((facility) => facility.toJson()).toList(),
+    };
   }
 }
