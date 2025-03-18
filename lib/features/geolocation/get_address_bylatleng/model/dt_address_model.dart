@@ -39,7 +39,7 @@ class DTAddressModel {
     );
   }
 
-  String get shortAddress => '$street, $city, $country';
+  String get shortAddress => '$street,$streetNumber $city, $country';
 
   String get internationalFormat => '$street\n$city, $state\n$country $postalCode';
 

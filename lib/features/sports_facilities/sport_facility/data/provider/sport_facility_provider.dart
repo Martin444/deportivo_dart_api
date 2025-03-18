@@ -120,4 +120,76 @@ class SportFacilityProvider extends SportFacilityRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<String> deleteSportsFacilitiesById(String id) async {
+    try {
+      Uri userURl = Uri.parse('${API.defaulBaseUrl}/sports-facilities/delete-by-id/$id');
+      var response = await http.delete(
+        headers: {'Authorization': 'Bearer ${API.loginAccessToken}'},
+        userURl,
+      );
+      if (response.statusCode != 200) {
+        throw ApiException(
+          response.statusCode,
+          response.body,
+        );
+      }
+
+      var respJson = jsonDecode(response.body);
+
+      // Verificar si respJson está vacío
+      if (respJson.isEmpty) {
+        return '';
+      }
+      return 'delete';
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> editSportsFacilitiesById(String id, SportFacilityBodyParam params) async {
+    try {
+      Uri updateURL = Uri.parse('${API.defaulBaseUrl}/sports-facilities/update/$id');
+
+      // Crear una solicitud Multipart
+      var request = http.MultipartRequest('PUT', updateURL);
+      // Añadir el accesstoken al header
+      request.headers['Authorization'] = 'Bearer ${API.loginAccessToken}';
+
+      var locationJsonForamated = jsonEncode(params.location.toJson());
+
+      request.fields['name'] = params.name;
+      request.fields['type'] = params.type;
+      request.fields['location'] = locationJsonForamated;
+      request.fields['daysAbilables'] = jsonEncode(params.daysAbilables);
+      request.fields['startsTimesAbilables'] = jsonEncode(params.startsTimesAbilables);
+      request.fields['endTimesAbilables'] = jsonEncode(params.endTimesAbilables);
+      request.fields['isActive'] = params.isActive.toString();
+
+      for (int i = 0; i < params.files.length; i++) {
+        var multipartFile = http.MultipartFile.fromBytes(
+          'files',
+          params.files[i],
+          filename: 'file_$i.jpg',
+          contentType: MediaType('image', 'jpeg'),
+        );
+        request.files.add(multipartFile);
+      }
+
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode != 200) {
+        throw ApiException(
+          response.statusCode,
+          response.body,
+        );
+      }
+      return response.body;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -1,48 +1,57 @@
 import 'package:deportivo_dart_api/deportivo_dart_api.dart';
+import 'package:flutter/material.dart';
 
 class SportFacilitieModel {
-  String name;
-  String type;
+  String? id;
+  String? name;
+  String? type;
   DTAddressModel? location;
-  DaysAbilables daysAbilables;
-  Map<String, dynamic> startsTimesAbilables;
-  Map<String, dynamic> endTimesAbilables;
+  DaysAbilables? daysAbilables;
+  Map<String, TimeOfDay>? startsTimesAbilables;
+  Map<String, TimeOfDay>? endTimesAbilables;
   UserModel? userOwner;
-  bool isActive;
+  bool? isActive;
   List<Photo>? photos;
-  String id;
-  DateTime createdAt;
-  DateTime updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   SportFacilitieModel({
     required this.name,
     required this.type,
     this.location,
-    required this.daysAbilables,
-    required this.startsTimesAbilables,
-    required this.endTimesAbilables,
+    this.daysAbilables,
+    this.startsTimesAbilables,
+    this.endTimesAbilables,
     this.userOwner,
-    required this.isActive,
+    this.isActive,
     this.photos,
-    required this.id,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory SportFacilitieModel.fromJson(Map<String, dynamic> json) {
     return SportFacilitieModel(
-      name: json['name'],
-      type: json['type'],
+      name: json['name'] ?? '',
+      type: json['type'] ?? '',
       location: json['location'] == null ? null : DTAddressModel.fromJson(json['location']),
-      daysAbilables: DaysAbilables.fromJson(json['daysAbilables']),
-      startsTimesAbilables: json['startsTimesAbilables'],
-      endTimesAbilables: Map.from(json['endTimesAbilables']),
+      daysAbilables: json['daysAbilables'] == null ? null : DaysAbilables.fromJson(json['daysAbilables']),
+      startsTimesAbilables: json['startsTimesAbilables'] == null
+          ? null
+          : (json['startsTimesAbilables'] as Map<String, dynamic>).map(
+              (key, value) => MapEntry(key, _timeOfDayFromString(value)),
+            ),
+      endTimesAbilables: json['endTimesAbilables'] == null
+          ? null
+          : (json['endTimesAbilables'] as Map<String, dynamic>).map(
+              (key, value) => MapEntry(key, _timeOfDayFromString(value)),
+            ),
       userOwner: json['userOwner'] == null ? null : UserModel.fromJson(json['userOwner']),
-      isActive: json['isActive'] as bool,
+      isActive: json['isActive'] == null ? null : json['isActive'] as bool,
       photos: json['photos'] == null ? null : List<Photo>.from(json['photos'].map((photo) => Photo.fromJson(photo))),
-      id: json['id'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
+      id: json['id'] ?? '',
+      createdAt: json['createdAt'] == null ? null : DateTime.parse(json['createdAt']),
+      updatedAt: json['updatedAt'] == null ? null : DateTime.parse(json['updatedAt']),
     );
   }
 
@@ -51,16 +60,29 @@ class SportFacilitieModel {
       'name': name,
       'type': type,
       'location': location?.toJson(),
-      'daysAbilables': daysAbilables.toJson(),
-      'startsTimesAbilables': startsTimesAbilables,
-      'endTimesAbilables': endTimesAbilables,
+      'daysAbilables': daysAbilables?.toJson(),
+      'startsTimesDisponibles': startsTimesAbilables?.map(
+        (key, value) => MapEntry(key, _timeOfDayToString(value)),
+      ),
+      'endTimesAbilables': endTimesAbilables?.map(
+        (key, value) => MapEntry(key, _timeOfDayToString(value)),
+      ),
       'userOwner': userOwner,
       'isActive': isActive,
       'photos': photos != null ? List<dynamic>.from(photos!.map((photo) => photo.toJson())) : '',
       'id': id,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
     };
+  }
+
+  static TimeOfDay _timeOfDayFromString(String time) {
+    final parts = time.split(":");
+    return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+  }
+
+  static String _timeOfDayToString(TimeOfDay time) {
+    return "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
   }
 }
 
@@ -85,17 +107,17 @@ class DaysAbilables {
 
   factory DaysAbilables.fromJson(Map<String, dynamic> json) {
     return DaysAbilables(
-      lunes: json['Lunes'],
-      martes: json['Martes'],
-      miercoles: json['Miércoles'],
-      jueves: json['Jueves'],
-      viernes: json['Viernes'],
-      sabado: json['Sábado'],
-      domingo: json['Domingo'],
+      lunes: json['Lunes'] as bool,
+      martes: json['Martes'] as bool,
+      miercoles: json['Miércoles'] as bool,
+      jueves: json['Jueves'] as bool,
+      viernes: json['Viernes'] as bool,
+      sabado: json['Sábado'] as bool,
+      domingo: json['Domingo'] as bool,
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, bool> toJson() {
     return {
       'Lunes': lunes,
       'Martes': martes,
