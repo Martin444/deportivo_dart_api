@@ -58,7 +58,7 @@ class DTAddressModel {
   static fromJson(Map<String, dynamic> json) => DTAddressModel(
         formattedAddress: json['formatted_address'] ?? '',
         street: json['street'] ?? '',
-        streetNumber: json['street_number'] ?? '',
+        streetNumber: json['streetNumber'] ?? '',
         city: json['city'] ?? '',
         state: json['state'] ?? '',
         country: json['country'] ?? '',
