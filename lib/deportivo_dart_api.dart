@@ -12,3 +12,4 @@ export 'package:deportivo_dart_api/features/user/profiles/data/usescase/get_me_u
 export 'package:deportivo_dart_api/features/user/profiles/data/usescase/get_clubes_usescases.dart';
 export 'package:deportivo_dart_api/features/geolocation/geolocation.dart';
 export 'package:deportivo_dart_api/features/sports_facilities/sport_facility.dart';
+export 'package:deportivo_dart_api/features/bookings/bookings.dart';
