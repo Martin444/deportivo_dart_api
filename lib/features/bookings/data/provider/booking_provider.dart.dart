@@ -38,4 +38,29 @@ class BookingProvider extends BookingRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<BookingModel> createBooking(BookingParams params) async {
+    try {
+      Uri bookingURl = Uri.parse('${API.defaulBaseUrl}/booking/sport-facility');
+      var response = await http.post(
+        bookingURl,
+        headers: {
+          'Authorization': 'Bearer ${API.loginAccessToken}',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(params.toJson()),
+      );
+      if (response.statusCode != 201) {
+        throw ApiException(
+          response.statusCode,
+          response.body,
+        );
+      }
+      var respJson = jsonDecode(response.body);
+      return BookingModel.fromJson(respJson);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
