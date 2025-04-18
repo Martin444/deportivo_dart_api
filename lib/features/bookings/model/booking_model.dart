@@ -1,12 +1,13 @@
 import 'package:deportivo_dart_api/deportivo_dart_api.dart';
+import 'package:flutter/material.dart';
 
 class BookingModel {
   final String? id;
   final String? description;
   final String? emailAlert;
   final String? phoneAlert;
-  final String? timeStart;
-  final String? timeEnd;
+  final TimeOfDay? timeStart;
+  final TimeOfDay? timeEnd;
   final DateTime? bookingDateRequest;
   final BookingStatus? state;
   final String? createAt;
@@ -35,8 +36,8 @@ class BookingModel {
       description: json['description'] as String?,
       emailAlert: json['emailAlert'] as String?,
       phoneAlert: json['phoneAlert'] as String?,
-      timeStart: json['timeStart'] as String?,
-      timeEnd: json['timeEnd'] as String?,
+      timeStart: _parseTimeOfDay(json['timeStart'] as String?),
+      timeEnd: _parseTimeOfDay(json['timeEnd'] as String?),
       bookingDateRequest: DateTime.tryParse(json['bookingDateRequest'] as String? ?? ''),
       state: _stringToBookingStatus(json['state'] as String?),
       createAt: json['createAt'] as String?,
@@ -54,8 +55,8 @@ class BookingModel {
       'description': description,
       'emailAlert': emailAlert,
       'phoneAlert': phoneAlert,
-      'timeStart': timeStart,
-      'timeEnd': timeEnd,
+      'timeStart': _formatTimeOfDay(timeStart),
+      'timeEnd': _formatTimeOfDay(timeEnd),
       'bookingDateRequest': bookingDateRequest?.toString(),
       'state': state?.name,
       'createAt': createAt,
@@ -76,5 +77,22 @@ class BookingModel {
       default:
         return null;
     }
+  }
+
+  static TimeOfDay? _parseTimeOfDay(String? timeString) {
+    if (timeString == null) return null;
+    final parts = timeString.split(':');
+    if (parts.length != 2) return null; // Or throw an error, depending on your needs
+    final hour = int.tryParse(parts[0]);
+    final minute = int.tryParse(parts[1]);
+
+    if (hour == null || minute == null) return null;
+
+    return TimeOfDay(hour: hour, minute: minute);
+  }
+
+  static String? _formatTimeOfDay(TimeOfDay? timeOfDay) {
+    if (timeOfDay == null) return null;
+    return '${timeOfDay.hour.toString().padLeft(2, '0')}:${timeOfDay.minute.toString().padLeft(2, '0')}';
   }
 }

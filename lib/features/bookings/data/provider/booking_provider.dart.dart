@@ -51,9 +51,10 @@ class BookingProvider extends BookingRepository {
         body: jsonEncode(params.toJson()),
       );
       if (response.statusCode != 201) {
+        var resperrJson = jsonDecode(response.body);
         throw ApiException(
           response.statusCode,
-          response.body,
+          resperrJson['message'],
         );
       }
       var respJson = jsonDecode(response.body);
@@ -73,9 +74,10 @@ class BookingProvider extends BookingRepository {
         userURl,
       );
       if (response.statusCode != 200) {
+        var resperrJson = jsonDecode(response.body);
         throw ApiException(
           response.statusCode,
-          response.body,
+          resperrJson['message'],
         );
       }
 

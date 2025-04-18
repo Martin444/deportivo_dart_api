@@ -1,3 +1,4 @@
+import 'package:deportivo_dart_api/deportivo_dart_api.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -7,7 +8,7 @@ class BookingRequestModel {
   final TimeOfDay? openTime;
   final TimeOfDay? closeTime;
   final bool? enable;
-  final List<dynamic>? bookings;
+  final List<BookingModel>? bookings;
 
   BookingRequestModel({
     required this.date,
@@ -25,7 +26,7 @@ class BookingRequestModel {
       openTime: _parseTimeOfDay(json['openTime'] as String?),
       closeTime: _parseTimeOfDay(json['closeTime'] as String?),
       enable: json['enable'] as bool?,
-      bookings: json['bookings'] as List<dynamic>?,
+      bookings: (json['bookings'] as List<dynamic>?)?.map((e) => BookingModel.fromJson(e)).toList(),
     );
   }
 
