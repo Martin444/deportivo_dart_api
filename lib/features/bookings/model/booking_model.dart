@@ -7,26 +7,26 @@ class BookingModel {
   final String? phoneAlert;
   final String? timeStart;
   final String? timeEnd;
-  final String? bookingDateRequest;
-  final String? state;
+  final DateTime? bookingDateRequest;
+  final BookingStatus? state;
   final String? createAt;
   final String? updateAt;
   final UserModel? requestUser;
   final SportFacilitieModel? sportFacility;
 
   BookingModel({
-    required this.id,
-    required this.description,
-    required this.emailAlert,
+    this.id,
+    this.description,
+    this.emailAlert,
     this.phoneAlert,
-    required this.timeStart,
-    required this.timeEnd,
-    required this.bookingDateRequest,
-    required this.state,
-    required this.createAt,
-    required this.updateAt,
-    required this.requestUser,
-    required this.sportFacility,
+    this.timeStart,
+    this.timeEnd,
+    this.bookingDateRequest,
+    this.state,
+    this.createAt,
+    this.updateAt,
+    this.requestUser,
+    this.sportFacility,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
@@ -37,8 +37,8 @@ class BookingModel {
       phoneAlert: json['phoneAlert'] as String?,
       timeStart: json['timeStart'] as String?,
       timeEnd: json['timeEnd'] as String?,
-      bookingDateRequest: json['bookingDateRequest'] as String?,
-      state: json['state'] as String?,
+      bookingDateRequest: DateTime.tryParse(json['bookingDateRequest'] as String? ?? ''),
+      state: _stringToBookingStatus(json['state'] as String?),
       createAt: json['createAt'] as String?,
       updateAt: json['updateAt'] as String?,
       requestUser: json['requestUser'] != null ? UserModel.fromJson(json['requestUser'] as Map<String, dynamic>) : null,
@@ -56,12 +56,25 @@ class BookingModel {
       'phoneAlert': phoneAlert,
       'timeStart': timeStart,
       'timeEnd': timeEnd,
-      'bookingDateRequest': bookingDateRequest,
-      'state': state,
+      'bookingDateRequest': bookingDateRequest?.toString(),
+      'state': state?.name,
       'createAt': createAt,
       'updateAt': updateAt,
       'requestUser': requestUser?.toJson(),
       'sportFacility': sportFacility?.toJson(),
     };
+  }
+
+  static BookingStatus? _stringToBookingStatus(String? status) {
+    switch (status) {
+      case 'pennding':
+        return BookingStatus.pennding;
+      case 'confirmed':
+        return BookingStatus.confirmed;
+      case 'canceled':
+        return BookingStatus.canceled;
+      default:
+        return null;
+    }
   }
 }
