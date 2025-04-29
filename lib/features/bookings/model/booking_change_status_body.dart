@@ -1,18 +1,13 @@
-import 'package:deportivo_dart_api/deportivo_dart_api.dart';
-
-class BookingChangeStatusBody {
+class BookingConfirmBody {
   final String bookingID;
-  final BookingStatus status;
 
-  BookingChangeStatusBody({
+  BookingConfirmBody({
     required this.bookingID,
-    required this.status,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'bookingID': bookingID,
-      'status': status.name,
     };
   }
 }

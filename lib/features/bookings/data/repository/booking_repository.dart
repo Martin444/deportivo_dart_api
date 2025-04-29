@@ -9,6 +9,6 @@ abstract class BookingRepository {
   //Traer reservaciones de un club
   Future<List<BookingModel>> getAllMyBookingsClubs(BookingStatus params);
 
-  //Actualiza el estado de una reservacion
-  Future<BookingModel> setStatusBooking(BookingChangeStatusBody status);
+  //Confirma la reservación
+  Future<BookingModel> confirmBooking(BookingConfirmBody params);
 }

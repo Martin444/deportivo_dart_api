@@ -5,4 +5,4 @@ export 'package:deportivo_dart_api/features/bookings/model/params/booking_params
 export 'package:deportivo_dart_api/features/bookings/data/usescase/get_avilable_date.dart';
 export 'package:deportivo_dart_api/features/bookings/data/usescase/post_new_booking.dart';
 export 'package:deportivo_dart_api/features/bookings/data/usescase/get_books_user.dart';
-export 'package:deportivo_dart_api/features/bookings/data/usescase/put_status_booking.dart';
+export 'package:deportivo_dart_api/features/bookings/data/usescase/confirm_booking.dart';

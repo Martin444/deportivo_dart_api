@@ -100,16 +100,16 @@ class BookingProvider extends BookingRepository {
   }
 
   @override
-  Future<BookingModel> setStatusBooking(BookingChangeStatusBody status) async {
+  Future<BookingModel> confirmBooking(BookingConfirmBody params) async {
     try {
-      Uri bookingURl = Uri.parse('${API.defaulBaseUrl}/booking/sport-facility/status');
+      Uri bookingURl = Uri.parse('${API.defaulBaseUrl}/booking/sport-facility/confirm');
       var response = await http.put(
         bookingURl,
         headers: {
           'Authorization': 'Bearer ${API.loginAccessToken}',
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(status.toJson()),
+        body: jsonEncode(params.toJson()),
       );
       if (response.statusCode != 200) {
         throw ApiException(
