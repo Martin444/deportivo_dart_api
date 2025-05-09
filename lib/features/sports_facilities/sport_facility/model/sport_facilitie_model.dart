@@ -1,4 +1,5 @@
 import 'package:deportivo_dart_api/deportivo_dart_api.dart';
+import 'package:deportivo_dart_api/features/bookings/model/booking_type_model.dart';
 import 'package:flutter/material.dart';
 
 class SportFacilitieModel {
@@ -12,6 +13,7 @@ class SportFacilitieModel {
   UserModel? userOwner;
   bool? isActive;
   List<Photo>? photos;
+  List<BookingType>? bookings;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -28,6 +30,7 @@ class SportFacilitieModel {
     this.id,
     this.createdAt,
     this.updatedAt,
+    this.bookings,
   });
 
   factory SportFacilitieModel.fromJson(Map<String, dynamic> json) {
@@ -49,6 +52,9 @@ class SportFacilitieModel {
       userOwner: json['userOwner'] == null ? null : UserModel.fromJson(json['userOwner']),
       isActive: json['isActive'] == null ? null : json['isActive'] as bool,
       photos: json['photos'] == null ? null : List<Photo>.from(json['photos'].map((photo) => Photo.fromJson(photo))),
+      bookings: json['bookings'] == null
+          ? null
+          : List<BookingType>.from(json['bookings'].map((photo) => BookingType.fromMap(photo))),
       id: json['id'] ?? '',
       createdAt: json['createdAt'] == null ? null : DateTime.parse(json['createdAt']),
       updatedAt: json['updatedAt'] == null ? null : DateTime.parse(json['updatedAt']),
@@ -70,6 +76,7 @@ class SportFacilitieModel {
       'userOwner': userOwner,
       'isActive': isActive,
       'photos': photos != null ? List<dynamic>.from(photos!.map((photo) => photo.toJson())) : '',
+      'bookings': bookings != null ? List<dynamic>.from(bookings!.map((type) => type.toJson())) : '',
       'id': id,
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
@@ -127,6 +134,23 @@ class DaysAbilables {
       'Sábado': sabado,
       'Domingo': domingo,
     };
+  }
+
+  Map<String, bool> toMap() {
+    return {
+      'Lunes': lunes,
+      'Martes': martes,
+      'Miércoles': miercoles,
+      'Jueves': jueves,
+      'Viernes': viernes,
+      'Sábado': sabado,
+      'Domingo': domingo,
+    };
+  }
+
+  @override
+  String toString() {
+    return '$lunes $martes $miercoles $jueves $viernes $sabado $domingo';
   }
 }
 

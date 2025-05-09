@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:deportivo_dart_api/deportivo_dart_api.dart';
+import 'package:deportivo_dart_api/features/sports_facilities/sport_facility/model/booking_type_body.dart';
 
 class SportFacilityBodyParam {
   final String name;
@@ -11,6 +12,7 @@ class SportFacilityBodyParam {
   final Map<String, bool> daysAbilables;
   final Map<String, String> startsTimesAbilables;
   final Map<String, String> endTimesAbilables;
+  final List<BookingTypeBodyParams> bookingTypes;
 
   SportFacilityBodyParam({
     required this.name,
@@ -21,5 +23,6 @@ class SportFacilityBodyParam {
     required this.daysAbilables,
     required this.startsTimesAbilables,
     required this.endTimesAbilables,
+    required this.bookingTypes,
   });
 }
