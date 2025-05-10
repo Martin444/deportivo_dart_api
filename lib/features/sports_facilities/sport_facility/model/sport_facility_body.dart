@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:deportivo_dart_api/deportivo_dart_api.dart';
-import 'package:deportivo_dart_api/features/sports_facilities/sport_facility/model/booking_type_body.dart';
 
 class SportFacilityBodyParam {
   final String name;

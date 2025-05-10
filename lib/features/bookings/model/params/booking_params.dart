@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../booking_type_body.dart';
+
 class BookingParams {
   final String sportFacilityID;
   final String description;
@@ -8,6 +10,7 @@ class BookingParams {
   final TimeOfDay timeStart;
   final TimeOfDay timeEnd;
   final DateTime bookingDateRequest;
+  final BookingTypeBodyParams bookingType;
 
   BookingParams({
     required this.sportFacilityID,
@@ -17,6 +20,7 @@ class BookingParams {
     required this.timeStart,
     required this.timeEnd,
     required this.bookingDateRequest,
+    required this.bookingType,
   });
 
   Map<String, dynamic> toJson() {
@@ -28,6 +32,7 @@ class BookingParams {
       "timeStart": "${timeStart.hour.toString().padLeft(2, '0')}:${timeStart.minute.toString().padLeft(2, '0')}",
       "timeEnd": "${timeEnd.hour.toString().padLeft(2, '0')}:${timeEnd.minute.toString().padLeft(2, '0')}",
       "bookingDateRequest": bookingDateRequest.toUtc().toIso8601String(),
+      "booking_types": bookingType.toJson(),
     };
   }
 }

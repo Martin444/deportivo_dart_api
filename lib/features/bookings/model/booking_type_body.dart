@@ -1,4 +1,4 @@
-import '../../../../deportivo_dart_api.dart';
+import '../../../deportivo_dart_api.dart';
 
 class BookingTypeBodyParams {
   final BookingTypeEnum type;
