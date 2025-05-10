@@ -168,6 +168,7 @@ class SportFacilityProvider extends SportFacilityRepository {
       request.fields['startsTimesAbilables'] = jsonEncode(params.startsTimesAbilables);
       request.fields['endTimesAbilables'] = jsonEncode(params.endTimesAbilables);
       request.fields['isActive'] = params.isActive.toString();
+      request.fields['booking_types'] = jsonEncode(params.bookingTypes.map((e) => e.toJson()).toList());
 
       for (int i = 0; i < params.files.length; i++) {
         var multipartFile = http.MultipartFile.fromBytes(
