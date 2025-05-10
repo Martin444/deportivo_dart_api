@@ -83,6 +83,24 @@ class SportFacilitieModel {
     };
   }
 
+  List<Map<String, dynamic>> toListDateAvilablesTexts() {
+    List<Map<String, dynamic>> scheduleList = [];
+    Map<String, bool>? daysMap = daysAbilables?.toMap();
+
+    daysMap?.forEach((day, available) {
+      if (available) {
+        TimeOfDay start = startsTimesAbilables?[day] ?? const TimeOfDay(hour: 0, minute: 0);
+        TimeOfDay end = endTimesAbilables?[day] ?? const TimeOfDay(hour: 0, minute: 0);
+        scheduleList.add({
+          'day': day,
+          'start': start,
+          'end': end,
+        });
+      }
+    });
+    return scheduleList;
+  }
+
   static TimeOfDay _timeOfDayFromString(String time) {
     final parts = time.split(":");
     return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));

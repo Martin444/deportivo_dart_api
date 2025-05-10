@@ -193,4 +193,33 @@ class SportFacilityProvider extends SportFacilityRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<SportFacilitieModel> getSportsFacilitiesById(String id) async {
+    try {
+      Uri userURl = Uri.parse('${API.defaulBaseUrl}/sports-facilities/get-by-id/$id');
+      var response = await http.get(
+        userURl,
+      );
+      if (response.statusCode != 200) {
+        throw ApiException(
+          response.statusCode,
+          response.body,
+        );
+      }
+
+      var respJson = jsonDecode(response.body);
+
+      // Verificar si respJson está vacío
+      if (respJson.isEmpty) {
+        return SportFacilitieModel(name: 'empty', type: '');
+      }
+      // Convertir la respuesta JSON a una lista de SportFacilitieModel
+      SportFacilitieModel sportsFinded = SportFacilitieModel.fromJson(respJson);
+
+      return sportsFinded;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

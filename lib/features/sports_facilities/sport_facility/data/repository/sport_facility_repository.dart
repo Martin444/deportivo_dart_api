@@ -10,6 +10,8 @@ abstract class SportFacilityRepository {
   Future<List<SportFacilitieModel>> getAllSportsFacilities();
   //Elimina un espacio en paticular (accesstoken),
   Future<String> deleteSportsFacilitiesById(String id);
+  //Trae un espacio en particular (accesstoken),
+  Future<SportFacilitieModel> getSportsFacilitiesById(String id);
   //Edita un espacio en paticular (accesstoken),
   Future<String> editSportsFacilitiesById(String id, SportFacilityBodyParam params);
 }
