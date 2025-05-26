@@ -12,3 +12,19 @@ enum BookingTypeEnum {
   year,
   custom,
 }
+
+enum BookingAttributesEnum {
+  requestUser,
+  sportFacility,
+  clubOwner,
+  paymentIntent,
+}
+
+enum PaymentStatusType {
+  pending,
+  approved,
+  inProcess,
+  rejected,
+  refunded,
+  cancelled,
+}

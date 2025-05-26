@@ -1,4 +1,5 @@
 import 'package:deportivo_dart_api/deportivo_dart_api.dart';
+import 'package:deportivo_dart_api/features/bookings/model/payment_intent_model.dart';
 import 'package:flutter/material.dart';
 
 class BookingModel {
@@ -14,6 +15,7 @@ class BookingModel {
   final String? updateAt;
   final UserModel? requestUser;
   final SportFacilitieModel? sportFacility;
+  final PaymentIntentModel? paymentIntent;
 
   BookingModel({
     this.id,
@@ -28,6 +30,7 @@ class BookingModel {
     this.updateAt,
     this.requestUser,
     this.sportFacility,
+    this.paymentIntent,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
@@ -45,6 +48,9 @@ class BookingModel {
       requestUser: json['requestUser'] != null ? UserModel.fromJson(json['requestUser'] as Map<String, dynamic>) : null,
       sportFacility: json['sportFacility'] != null
           ? SportFacilitieModel.fromJson(json['sportFacility'] as Map<String, dynamic>)
+          : null,
+      paymentIntent: json['paymentIntent'] != null
+          ? PaymentIntentModel.fromJson(json['paymentIntent'] as Map<String, dynamic>)
           : null,
     );
   }

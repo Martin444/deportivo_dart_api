@@ -123,4 +123,30 @@ class BookingProvider extends BookingRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<BookingModel> getBookingDetails(
+    String bookingId,
+    List<BookingAttributesEnum>? responseAttribute,
+  ) async {
+    try {
+      final attributes = responseAttribute?.map((e) => e.name).join(',') ?? '';
+      Uri bookingURl = Uri.parse('${API.defaulBaseUrl}/booking/detail/$bookingId'
+          '${attributes.isNotEmpty ? '?responseAttribute=$attributes' : ''}');
+      var response = await http.get(
+        // headers: {'Authorization': 'Bearer ${API.loginAccessToken}'},
+        bookingURl,
+      );
+      if (response.statusCode != 200) {
+        throw ApiException(
+          response.statusCode,
+          response.body,
+        );
+      }
+      var respJson = jsonDecode(response.body);
+      return BookingModel.fromJson(respJson);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
