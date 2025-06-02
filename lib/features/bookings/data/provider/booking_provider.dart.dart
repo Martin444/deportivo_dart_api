@@ -68,7 +68,7 @@ class BookingProvider extends BookingRepository {
   Future<List<BookingModel>> getAllMyBookingsClubs(BookingStatus params) async {
     try {
       Uri userURl = Uri.parse(
-          '${API.defaulBaseUrl}/booking/sport-facility/club-owner?responseAttribute=requestUser,sportFacility&status=${params.name}');
+          '${API.defaulBaseUrl}/booking/sport-facility/club-owner?responseAttribute=requestUser,sportFacility,paymentIntent&status=${params.name}');
       var response = await http.get(
         headers: {'Authorization': 'Bearer ${API.loginAccessToken}'},
         userURl,
