@@ -24,7 +24,7 @@ class PaymentIntentModel {
         (e) => e.toString().split('.').last == json['state'],
         orElse: () => PaymentStatusType.values.first,
       ),
-      amount: json['amount'] as double,
+      amount: (json['amount'] is int) ? (json['amount'] as int).toDouble() : json['amount'] as double,
     );
   }
 
