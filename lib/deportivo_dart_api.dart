@@ -6,6 +6,7 @@ export 'package:deportivo_dart_api/core/exeptions/api_exception.dart';
 export 'package:deportivo_dart_api/features/auth/login/data/usescase/login_usescase.dart';
 export 'package:deportivo_dart_api/features/auth/login/model/user_succes_model.dart';
 export 'package:deportivo_dart_api/features/auth/register/data/usescase/register_commerce_usescase.dart';
+export 'package:deportivo_dart_api/features/auth/register/data/usescase/register_social_usescase.dart';
 export 'package:deportivo_dart_api/features/upload_images/upload_images.dart';
 export 'package:deportivo_dart_api/features/user/profiles/model/roles_users.dart';
 export 'package:deportivo_dart_api/features/user/profiles/model/user_model.dart';
