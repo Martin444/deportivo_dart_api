@@ -39,4 +39,34 @@ class LoginProvider extends LoginRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<UserSuccess> loginSocial({
+    required String socialToken,
+  }) async {
+    try {
+      Uri loginUrl = Uri.parse('${API.defaulBaseUrl}/auth/social/login');
+      var response = await http.post(
+        loginUrl,
+        headers: {
+          'Authorization': 'Bearer $socialToken',
+        },
+      );
+      if (response.statusCode != 201) {
+        var respJson = jsonDecode(response.body);
+        throw ApiException(
+          response.statusCode,
+          respJson['message'],
+        );
+      }
+      var respJson = jsonDecode(response.body);
+      API.setAccessToken(respJson['access_token']);
+      return UserSuccess(
+        accessToken: respJson['access_token'],
+        needToChangePassword: respJson['needToChangePassword'],
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

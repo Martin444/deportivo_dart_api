@@ -5,4 +5,7 @@ abstract class LoginRepository {
     required String email,
     required String password,
   });
+  Future<UserSuccess> loginSocial({
+    required String socialToken,
+  });
 }
