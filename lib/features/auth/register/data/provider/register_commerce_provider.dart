@@ -71,7 +71,7 @@ class RegisterCommerceProvider extends RegisterCommerceRespository {
   Future<UserSuccess> registerWithSocialToken({
     required String socialToken,
     required String email,
-    required Uint8List photoUrl,
+    required String photoUrl,
     required String name,
     required String phone,
     required String role,
@@ -86,20 +86,21 @@ class RegisterCommerceProvider extends RegisterCommerceRespository {
       request.fields['email'] = email;
       request.fields['name'] = name;
       request.fields['phone'] = phone;
+      request.fields['photoURL'] = photoUrl;
       request.fields['socialToken'] = socialToken;
       request.fields['role'] = role;
       request.fields['needToChangepassword'] = 'false';
 
-      // Convertir Uint8List a MultipartFile
-      var multipartFile = http.MultipartFile.fromBytes(
-        'photo', // Nombre del campo en el servidor
-        photoUrl, // Convertir URL a bytes
-        filename: 'photo.jpg',
-        contentType: MediaType('image', 'jpeg'), // Ajusta el tipo MIME según tu archivo
-      );
+      // // Convertir Uint8List a MultipartFile
+      // var multipartFile = http.MultipartFile.fromBytes(
+      //   'photo', // Nombre del campo en el servidor
+      //   photoUrl, // Convertir URL a bytes
+      //   filename: 'photo.jpg',
+      //   contentType: MediaType('image', 'jpeg'), // Ajusta el tipo MIME según tu archivo
+      // );
 
-      // Añadir archivo a la solicitud
-      request.files.add(multipartFile);
+      // // Añadir archivo a la solicitud
+      // request.files.add(multipartFile);
 
       // Enviar la solicitud
       var streamedResponse = await request.send();

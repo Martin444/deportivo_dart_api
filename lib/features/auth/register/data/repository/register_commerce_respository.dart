@@ -13,7 +13,7 @@ abstract class RegisterCommerceRespository {
   Future<UserSuccess> registerWithSocialToken({
     required String socialToken,
     required String email,
-    required Uint8List photoUrl,
+    required String photoUrl,
     required String name,
     required String phone,
     required String role,
